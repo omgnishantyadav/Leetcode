@@ -8,19 +8,12 @@ public:
         }
 
         for(auto it:m){
-            int x = it.second;
-            if(x==1) return -1;
-            int cnt = x/6;
-            cnt*=2;
-            x%=6;
-            if(x%2==0){
-                cnt += x/2;
-            }
-            else if(x==3) cnt++;
-            else if(x==5) cnt+=2; 
-            if(x==1) cnt++;
-            round += cnt;
+            int f = it.second;
+            if(f==1) return -1;
+            round += ceil( (f+2) / 3);
         }
         return round;
     }
 };
+
+//gredy approach 
