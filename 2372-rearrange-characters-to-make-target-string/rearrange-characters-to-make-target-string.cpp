@@ -11,8 +11,8 @@ public:
             m2[target[i]]++;
         }
 
-        for(int i=0; i<target.size(); i++){
-            int val = m1[target[i]]/m2[target[i]];
+        for(auto it: m2){
+            int val = m1[it.first]/it.second;
             count = min(count, val);
         }
 
