@@ -2,17 +2,24 @@ class Solution {
 public:
     int maxOperations(vector<int>& nums, int k) {
         unordered_map<int,int> m;
-        int count = 0; 
         for(int i=0; i<nums.size(); i++){
-            if(m.find(k-nums[i]) != m.end()){
-                count ++;
-                m[k-nums[i]]--;
-                if(m[k-nums[i]]==0) m.erase(k-nums[i]);   
-            }
-            else{
-                m[nums[i]]++;
+            m[nums[i]]++;
+        }
+
+        unordered_map<int,int> visited;
+        int count = 0; 
+
+        for(int i=0; i<nums.size(); i++){
+            if(!visited[nums[i]] && m[k-nums[i]]){
+                if(2*nums[i] == k ){
+                    count += m[nums[i]]/2;
+                }
+                else count += min(m[nums[i]],m[k-nums[i]]);
+                visited[nums[i]]=1;
+                visited[k-nums[i]]=1;
             }
         }
+
 
         return count;
     }
