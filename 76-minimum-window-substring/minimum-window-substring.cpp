@@ -1,54 +1,47 @@
 class Solution {
 public:
-    
-    bool isEqual(unordered_map<char,int>& ms, unordered_map<char,int>& mt){
-        for(auto x: mt){
-            if(ms[x.first]<x.second) return false;
-        }
-        return true;
-    }
-
     string minWindow(string s, string t) {
-        int start = 0;
-        int g = INT_MAX;
         int m = s.size();
         int n = t.size();
 
-        
+        unordered_map<char,int> mt,ms;
 
-        unordered_map<char,int> mt;
-        unordered_map<char,int> ms;
-        for(int i=0; i<n; i++){
-            mt[t[i]]++;
+        for(auto x: t){
+            mt[x]++;
         }
-        
+
+        int required = mt.size();
+        int formed = 0;
+        int g = INT_MAX;
         int left = 0;
-        for(int i = 0; i<m;){
-            while(i<m && !isEqual(ms,mt)){
-                if(mt[s[i]]) ms[s[i]]++;
-                i++;
-            }
+        int start = left;
 
-            while(left<i){
-                if(!isEqual(ms,mt)){
-                    break;
-                }
+        for(int right = 0; right <m; right++){
 
-                //match toh hain yaha pe
-                int cnt = i - left;
-                if(cnt<g){
-                    g = cnt;
+            ms[s[right]]++; 
+
+            if(mt.count(s[right]) && ms[s[right]] == mt[s[right]] ) formed++;
+             
+            while(formed == required){
+
+                if(right-left+1<g){
+                    g = right - left+1;
                     start = left;
                 }
-                if(mt[s[left]]){
-                    ms[s[left]]--;
+
+
+                char ch = s[left];
+                ms[ch]--;
+
+                if(mt.count(ch) && ms[ch]<mt[ch]){
+                    formed--;
                 }
-                left++;                            
+
+                left++;
             }
-        }
+        } 
 
         if(g==INT_MAX) return "";
-
         return s.substr(start, g);
     }
 };
