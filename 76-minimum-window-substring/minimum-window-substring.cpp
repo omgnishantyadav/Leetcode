@@ -25,7 +25,7 @@ public:
         int left = 0;
         for(int i = 0; i<m;){
             while(i<m && !isEqual(ms,mt)){
-                if(mt[s[i]]>=1) ms[s[i]]++;
+                if(mt[s[i]]) ms[s[i]]++;
                 i++;
             }
 
@@ -40,7 +40,7 @@ public:
                     g = cnt;
                     start = left;
                 }
-                if(mt[s[left]]>=1){
+                if(mt[s[left]]){
                     ms[s[left]]--;
                 }
                 left++;                            
