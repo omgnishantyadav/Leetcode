@@ -19,7 +19,7 @@ public:
 
         vector<vector<int>> dp(n+1, vector<int>(m+1,-1));
 
-        return solve(dp,text1,text2,n,m);
+        solve(dp,text1,text2,n,m);
         return dp[n][m];
     }
 };
